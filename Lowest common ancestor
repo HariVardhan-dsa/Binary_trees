@@ -1,0 +1,30 @@
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) { 
+        if(!root||root==p||root==q)return root;
+        TreeNode* left=lowestCommonAncestor(root->left,p,q);
+        TreeNode* right=lowestCommonAncestor(root->right,p,q);
+        if(left==NULL)return right;
+        else if(right==NULL)return left;
+        return root;
+    }
+};
+
+Example: 
+         1
+        / \
+       2   3
+      /|   |\
+     4 5   6 7
+    / \
+   p   q
+
+Call Stack:
+lowestCommonAncestor(1, p, q)
+  -> lowestCommonAncestor(2, p, q)
+      -> lowestCommonAncestor(4, p, q) -> returns 4
+      -> lowestCommonAncestor(5, p, q) -> returns 5
+  -> returns 2
+  -> lowestCommonAncestor(3, p, q)
+      -> returns NULL
+  -> returns 2
